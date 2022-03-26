@@ -29,11 +29,3 @@ body {
 	padding: 0 1.5vw;
 }
 
-.youtube-link {
-	position: fixed;
-	left: 20px;
-	bottom: 20px;
-	color: #fff;
-	text-decoration: none;
-	font-size: 12px;
-}
