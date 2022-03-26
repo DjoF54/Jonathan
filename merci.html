@@ -4,16 +4,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="2 ; url=https://djof54.github.io/jonathan/index.html">
+    <meta http-equiv="refresh" content="20 ; url=https://djof54.github.io/jonathan/index.html">
 
     <link rel="stylesheet" href="assets/css/merci.css">
     <title>Remerciement</title>
 </head>
 <body>
     <main>
-        <img src="assets/img/Oslo.png" alt="">
-        <h1>Merci pour votre mail</h1>
+        <div class="container">
+            <div class="line"><div class="inner">Votre demande a bien été envoyée</div></div>
+            <div class="line"><div class="inner">Merci !</div></div>
+            <div class="line"><div class="inner">Je vous contacterai dans les plus brefs délai</div></div>
+        </div>
     </main>
-   
+
+<!--====GSAP====-->
+<script src="assets/js/gsap.min.js"></script>
+
+<script>
+    const container = document.querySelector('.container');
+    const lines = container.querySelectorAll('.line');
+    
+    const init = () => {
+        container.style.visibility = 'visible';
+        
+        lines.forEach((line,idx) => {
+            let inner = line.querySelector('.inner');
+            let w = inner.clientWidth;
+            let h = inner.clientHeight;
+    
+            inner.innerHTML = inner.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+    
+            let letter = inner.querySelectorAll('.letter');
+            let timeline = gsap.timeline({ paused: true });
+    
+            gsap.set(line, {
+                width: h,
+                opacity: 0,
+                y: '150%',
+                rotate: 90,
+                scale: .2
+            });
+            gsap.set(letter, {
+                color: '#fff'
+            });
+            
+            timeline.to(line, {
+                opacity: 1,
+                duration: .1
+            });
+            timeline.to(line, {
+                y: '0%',
+                rotate: 0,
+                scale: 1,
+                duration: .3
+            });
+            timeline.to(line, {
+                width: w,
+                duration: .5,
+                ease: 'power3.inOut'
+            });
+            timeline.to(letter, {
+                color: '#3c40c6',
+                stagger: {
+                    amount: .3,
+                    from: 0
+                },
+                duration: .3,
+                ease: 'power2.inOut'
+            }, .5);
+    
+            setTimeout(() => {
+                timeline.play();
+            }, 500 * idx);
+        });
+    }
+    
+    window.addEventListener('load', init);
+    window.addEventListener('resize', init);
+</script>
+
+
 </body>
 </html>
